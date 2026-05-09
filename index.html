@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SAP Error Bot</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    #chat { border: 1px solid #ccc; height: 300px; overflow-y: auto; padding: 10px; }
+    input { width: 80%; padding: 10px; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>SAP Error Resolution Bot</h2>
+
+<div id="chat"></div>
+
+<input id="msg" placeholder="Type SAP error..." />
+<button onclick="sendMsg()">Send</button>
+
+<script>
+function getReply(text) {
+    text = text.toLowerCase();
+
+    if (text.includes("mb58") && text.includes("device")) {
+        return `
+Check steps:
+1. Check IQ03
+2. Check last movement
+3. Open last document
+4. Check header text
+`;
+    }
+
+    return "No rule found. Please contact SAP support.";
+}
+
+function sendMsg() {
+    let input = document.getElementById("msg");
+    let chat = document.getElementById("chat");
+
+    let userText = input.value;
+    chat.innerHTML += "<b>You:</b> " + userText + "<br>";
+
+    let botReply = getReply(userText);
+    chat.innerHTML += "<b>Bot:</b><pre>" + botReply + "</pre><br>";
+
+    input.value = "";
+}
+</script>
+
+</body>
+</html>
